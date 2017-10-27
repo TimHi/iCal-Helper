@@ -1,36 +1,57 @@
 package calender;
-import biweekly.Biweekly;
-import biweekly.ICalendar;
+
 import javafx.application.Application;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.stage.Stage;
+import javafx.scene.text.Text;
+import java.io.File;
 
 public class Main extends Application {
     public static void main(String[] args) {
-        ICalendar myCal = new ICalendar();
-        launch(args);
+        Application.launch(args);
     }
 
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("Hello World!");
-        Button btn = new Button();
-        btn.setText("Say 'Hello World'");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-
+        Group root = new Group();
+        Scene scene = new Scene(root, 551, 400);
+        scene.setOnDragOver(new EventHandler<DragEvent>() {
             @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
+            public void handle(DragEvent event) {
+                Dragboard db = event.getDragboard();
+                if (db.hasFiles()) {
+                    event.acceptTransferModes(TransferMode.COPY);
+                } else {
+                    event.consume();
+                }
             }
         });
 
-        StackPane root = new StackPane();
-        root.getChildren().add(btn);
-        primaryStage.setScene(new Scene(root, 300, 250));
+        // Dropping over surface
+        scene.setOnDragDropped(new EventHandler<DragEvent>() {
+            @Override
+            public void handle(DragEvent event) {
+                Dragboard db = event.getDragboard();
+                boolean success = false;
+                if (db.hasFiles()) {
+                    success = true;
+                    String filePath = null;
+                    for (File file:db.getFiles()) {
+                        filePath = file.getAbsolutePath();
+                        System.out.println(filePath);
+                    }
+                }
+                event.setDropCompleted(success);
+                event.consume();
+            }
+        });
+
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
 }
