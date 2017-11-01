@@ -63,7 +63,7 @@ public class Main extends Application {
                     for (File file:db.getFiles()) {
                         filePath = file.getAbsolutePath();
                         System.out.println(filePath);
-                        iCal i = new iCal(filePath);
+                        iCal i = new iCal(file);
                         i.readCSV();
                     }
                 }
