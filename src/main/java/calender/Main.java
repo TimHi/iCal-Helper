@@ -8,7 +8,12 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.stage.Stage;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
+
+import javafx.stage.Stage;
 import java.io.File;
 
 public class Main extends Application {
@@ -17,9 +22,23 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) {
-        Group root = new Group();
-        Scene scene = new Scene(root, 551, 400);
+    public void start(Stage stage) {
+
+
+        TextFlow textFlow = new TextFlow();
+        Font font = new Font("Tahoma", 20);
+
+        Text text1 = new Text("Drag & Drop CSV File here");
+        text1.setFill(Color.BLACK);
+        text1.setFont(font);
+
+        textFlow.getChildren().addAll(text1);
+
+        Group group = new Group(textFlow);
+        Scene scene = new Scene(group, 650, 150, Color.WHITE);
+        stage.setTitle("iCal Helper");
+
+
         scene.setOnDragOver(new EventHandler<DragEvent>() {
             @Override
             public void handle(DragEvent event) {
@@ -44,6 +63,8 @@ public class Main extends Application {
                     for (File file:db.getFiles()) {
                         filePath = file.getAbsolutePath();
                         System.out.println(filePath);
+                        iCal i = new iCal(filePath);
+                        i.readCSV();
                     }
                 }
                 event.setDropCompleted(success);
@@ -51,7 +72,7 @@ public class Main extends Application {
             }
         });
 
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        stage.setScene(scene);
+        stage.show();
     }
 }
