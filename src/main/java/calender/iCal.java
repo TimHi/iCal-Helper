@@ -20,20 +20,6 @@ public class iCal {
     }
     void readCSV() {
 
-        //Default delimiter is ,
-
-
-        try{
-        String filePath = csvFile.getCanonicalPath();
-        CSVReader reader = new CSVReader(new FileReader(filePath));
-        String [] nextLine;
-        while ((nextLine = reader.readNext()) != null) {
-            // nextLine[] is an array of values from the line
-            System.out.println(nextLine[0] + nextLine[1] + "etc...");
-        }
-        } catch (IOException ioe) {
-            System.out.println(ioe);
-        }
 
         try{
             String filePath = csvFile.getCanonicalPath();
