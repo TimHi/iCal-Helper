@@ -23,7 +23,7 @@ public class iCal {
 
         try{
             String filePath = csvFile.getCanonicalPath();
-            CSVReader reader2 = new CSVReader(new FileReader(filePath), ';');
+            CSVReader reader2 = new CSVReader(new FileReader(filePath), ',');
 
             String [] nextLine;
             while ((nextLine = reader2.readNext()) != null) {

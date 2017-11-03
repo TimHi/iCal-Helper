@@ -11,5 +11,8 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
+
+    compile group: 'com.opencsv', name: 'opencsv', version: '3.8'
+
     compile 'net.sf.biweekly:biweekly:0.6.1'
 }
