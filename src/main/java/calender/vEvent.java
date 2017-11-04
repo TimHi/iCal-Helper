@@ -11,7 +11,8 @@ public class vEvent {
     private String desc;
     private boolean wholeDay;
 
-    vEvent(){
-
+    vEvent(String tname, String sDate){
+        this.terminName = tname;
+        this.startDate = sDate;
     }
 }
