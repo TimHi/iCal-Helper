@@ -25,7 +25,7 @@ public class iCal {
     public void createCalenderFile(List<vEvent> eventList){
         ICalendar ical = new ICalendar();
         VEvent event = new VEvent();
-        
+
     }
 
     List createEvents(List<String[]> calStrings){
