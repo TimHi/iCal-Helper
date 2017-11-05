@@ -1,7 +1,9 @@
 package calender;
 
 import biweekly.Biweekly;
+import biweekly.ICalVersion;
 import biweekly.ICalendar;
+import biweekly.ValidationWarnings;
 import biweekly.component.VEvent;
 import biweekly.property.Comment;
 import biweekly.property.Name;
@@ -35,6 +37,8 @@ public class iCal {
         }
         File file = new File("meeting.ics");
         try {
+            ValidationWarnings warnings = ical.validate(ICalVersion.V2_0);
+            System.out.println(warnings.toString());
             Biweekly.write(ical).go(file);
         } catch (IOException e) {
             e.printStackTrace();
