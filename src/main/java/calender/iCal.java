@@ -1,20 +1,23 @@
 package calender;
 
+import biweekly.Biweekly;
 import biweekly.ICalendar;
 import biweekly.component.VEvent;
+import biweekly.property.Comment;
+import biweekly.property.Name;
 import biweekly.property.Summary;
 import com.opencsv.CSVReader;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class iCal {
 
-    //private String csvFile;
     private File csvFile;
     List<vEvent> eventList = new ArrayList<>();
 
@@ -24,11 +27,21 @@ public class iCal {
 
     public void createCalenderFile(List<vEvent> eventList){
         ICalendar ical = new ICalendar();
-        VEvent event = new VEvent();
-
+        for(vEvent event : eventList) {
+            VEvent calEvent = new VEvent();
+            calEvent.setSummary(event.getTerminName());
+            calEvent.setDateStart(event.getStartDate());
+            ical.addEvent(calEvent);
+        }
+        File file = new File("meeting.ics");
+        try {
+            Biweekly.write(ical).go(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    List createEvents(List<String[]> calStrings){
+    List createEvents(List<String[]> calStrings) throws ParseException {
         List<vEvent> evList = new ArrayList<>();
 
         for(int z = 1; z < calStrings.size(); z++){
@@ -74,14 +87,20 @@ public class iCal {
 
             String [] nextLine;
             List<String[]> calStrings = new ArrayList<>();
+
            while ((nextLine = reader2.readNext()) != null) {
                    calStrings.add(nextLine);
             }
 
            List<vEvent> eventList;
 
-           eventList = createEvents(calStrings);
-           createCalenderFile(eventList);
+            try {
+                eventList = createEvents(calStrings);
+                createCalenderFile(eventList);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
            /*
            for(int i = 0; i < eventList.size(); i++){
                eventList.get(i).printElement();

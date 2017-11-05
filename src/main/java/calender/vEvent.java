@@ -1,8 +1,12 @@
 package calender;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class vEvent {
     private String terminName;
-    private String startDate;
+    private Date startDate;
     private String startTime;
     private String endDate;
     private String endTime;
@@ -13,7 +17,13 @@ public class vEvent {
 
     vEvent(){}
     public void setTerminName(String terminName){this.terminName = terminName;}
-    public void setStartDate(String startDate){this.startDate = startDate;}
+
+    public void setStartDate(String startDate) throws ParseException {
+        SimpleDateFormat formatter1=new SimpleDateFormat("dd.MM.yyyy");
+            Date date3=formatter1.parse(startDate);
+            this.startDate = date3;
+            System.out.print(date3 + " ");
+    }
     public void setStartTime(String startTime){this.startTime = startTime;}
     public void setEndDate(String endDate){this.endDate = endDate;}
     public void setEndTime(String endTime){this.endTime = endTime;}
@@ -27,7 +37,7 @@ public class vEvent {
     public String getEndTime() { return endTime; }
     public String getPlace() { return place; }
     public String getRepeat() { return repeat; }
-    public String getStartDate() { return startDate; }
+    public Date getStartDate() { return startDate; }
     public String getStartTime() { return startTime; }
     public String getTerminName() { return terminName; }
     public String getWholeDay() { return wholeDay; }
