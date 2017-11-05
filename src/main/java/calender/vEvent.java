@@ -1,6 +1,6 @@
 package calender;
 
-import java.text.DateFormat;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -21,14 +21,11 @@ public class vEvent {
 
     public void setStartDate(String startDate) throws ParseException {
 
-
         Date date = new SimpleDateFormat("dd.MM.yy").parse(startDate);
         String dateString2 = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(date);
-        //DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date parsedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(dateString2);
-
         this.startDate = parsedDate;
-        System.out.print(parsedDate + " ");
+
     }
     public void setStartTime(String startTime){this.startTime = startTime;}
     public void setEndDate(String endDate){this.endDate = endDate;}

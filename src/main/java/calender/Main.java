@@ -13,7 +13,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
-import javafx.stage.Stage;
 import java.io.File;
 
 public class Main extends Application {
