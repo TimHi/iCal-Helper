@@ -25,7 +25,7 @@ public class Main extends Application {
 
 
         TextFlow textFlow = new TextFlow();
-        Font font = new Font("Tahoma", 20);
+        Font font = new Font("Arial", 10);
 
         Text text1 = new Text("Drag & Drop CSV File here");
         text1.setFill(Color.BLACK);

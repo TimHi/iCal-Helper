@@ -9,7 +9,7 @@ public class vEvent {
     private String terminName;
     private Date startDate;
     private String startTime;
-    private String endDate;
+    private Date endDate;
     private String endTime;
     private String place;
     private String repeat;
@@ -20,15 +20,32 @@ public class vEvent {
     public void setTerminName(String terminName){this.terminName = terminName;}
 
     public void setStartDate(String startDate) throws ParseException {
-
-        Date date = new SimpleDateFormat("dd.MM.yy").parse(startDate);
-        String dateString2 = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(date);
-        Date parsedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(dateString2);
-        this.startDate = parsedDate;
-
+        if(getStartTime() != null){
+            String tStartTime = getStartTime();
+            startDate = startDate + " " + tStartTime;
+            Date parsedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(startDate);
+            this.startDate = parsedDate;
+        }else {
+            Date date = new SimpleDateFormat("dd.MM.yy").parse(startDate);
+            String dateString2 = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(date);
+            Date parsedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(dateString2);
+            this.startDate = parsedDate;
+        }
     }
     public void setStartTime(String startTime){this.startTime = startTime;}
-    public void setEndDate(String endDate){this.endDate = endDate;}
+    public void setEndDate(String endDate) throws ParseException {
+        if(getEndTime() != null){
+            String tEndTime = getEndTime();
+            endDate = endDate + " " + tEndTime;
+            Date parsedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(endDate);
+            this.endDate = parsedDate;
+        }else {
+            Date date = new SimpleDateFormat("dd.MM.yy").parse(endDate);
+            String dateString2 = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(date);
+            Date parsedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(dateString2);
+            this.endDate = parsedDate;
+        }
+    }
     public void setEndTime(String endTime){this.endTime = endTime;}
     public void setPlace(String place){this.place = place;}
     public void setRepeat(String repeat){this.repeat = repeat;}
@@ -36,7 +53,7 @@ public class vEvent {
     public void setWholeDay(String wholeDay){this.wholeDay = wholeDay;}
 
     public String getDesc() { return desc; }
-    public String getEndDate() { return endDate; }
+    public Date getEndDate() { return endDate; }
     public String getEndTime() { return endTime; }
     public String getPlace() { return place; }
     public String getRepeat() { return repeat; }

@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 
+import java.util.Date;
 import java.util.List;
 
 public class iCal {
@@ -31,6 +32,15 @@ public class iCal {
             VEvent calEvent = new VEvent();
             calEvent.setSummary(event.getTerminName());
             calEvent.setDateStart(event.getStartDate());
+            if(event.getEndDate() != null) {
+                calEvent.setDateEnd(event.getEndDate());
+            }
+            calEvent.setCreated(new Date());
+            if(event.getPlace() != null){
+                calEvent.setLocation(event.getPlace());
+            }
+            calEvent.setDescription(event.getDesc());
+
             ical.addEvent(calEvent);
         }
         File file = new File("meeting.ics");
@@ -49,31 +59,31 @@ public class iCal {
         for(int z = 1; z < calStrings.size(); z++){
             vEvent csvEvent = new vEvent();
             //TODO find more efficiant way to do this
-            if(calStrings.get(z)[0] != null){
+            if(calStrings.get(z)[0] != null && !calStrings.get(z)[0].isEmpty()){
                 csvEvent.setTerminName(calStrings.get(z)[0]);
             }
-            if(calStrings.get(z)[1] != null){
+            if(calStrings.get(z)[1] != null && !calStrings.get(z)[1].isEmpty()){
                 csvEvent.setStartDate(calStrings.get(z)[1]);
             }
-            if(calStrings.get(z)[2] != null){
+            if(calStrings.get(z)[2] != null && !calStrings.get(z)[2].isEmpty()){
                 csvEvent.setStartTime(calStrings.get(z)[2]);
             }
-            if(calStrings.get(z)[3] != null){
+            if(calStrings.get(z)[3] != null && !calStrings.get(z)[3].isEmpty()){
                 csvEvent.setEndDate(calStrings.get(z)[3]);
             }
-            if(calStrings.get(z)[4] != null){
+            if(calStrings.get(z)[4] != null && !calStrings.get(z)[4].isEmpty()){
                 csvEvent.setEndTime(calStrings.get(z)[4]);
             }
-            if(calStrings.get(z)[5] != null){
+            if(calStrings.get(z)[5] != null && !calStrings.get(z)[5].isEmpty()){
                 csvEvent.setPlace(calStrings.get(z)[5]);
             }
-            if(calStrings.get(z)[6] != null){
+            if(calStrings.get(z)[6] != null && !calStrings.get(z)[6].isEmpty()){
                 csvEvent.setRepeat(calStrings.get(z)[6]);
             }
-            if(calStrings.get(z)[7] != null){
+            if(calStrings.get(z)[7] != null && !calStrings.get(z)[7].isEmpty()){
                 csvEvent.setDesc(calStrings.get(z)[7]);
             }
-            if(calStrings.get(z)[8] != null){
+            if(calStrings.get(z)[8] != null && !calStrings.get(z)[8].isEmpty()){
                 csvEvent.setWholeDay(calStrings.get(z)[8]);
             }
             evList.add(csvEvent);
