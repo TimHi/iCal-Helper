@@ -31,12 +31,9 @@ public class iCal {
         for(vEvent event : eventList) {
             VEvent calEvent = new VEvent();
             calEvent.setSummary(event.getTerminName());
-            //Check if Event is over the whole day
-            if(event.getWholeDay() != null) {
-                calEvent.setDateStart(event.getStartDate(), false);
-            }else{
-                calEvent.setDateStart(event.getStartDate());
-            }
+
+             calEvent.setDateStart(event.getStartDate());
+
             if(event.getEndDate() != null) {
                 calEvent.setDateEnd(event.getEndDate());
             }
@@ -84,11 +81,9 @@ public class iCal {
                 csvEvent.setPlace(calStrings.get(z)[5]);
             }
             if(calStrings.get(z)[6] != null && !calStrings.get(z)[6].isEmpty()){
-                csvEvent.setRepeat(calStrings.get(z)[6]);
+                csvEvent.setDesc(calStrings.get(z)[6]);
             }
-            if(calStrings.get(z)[7] != null && !calStrings.get(z)[7].isEmpty()){
-                csvEvent.setDesc(calStrings.get(z)[7]);
-            }
+            csvEvent.printElement();
             evList.add(csvEvent);
             }
         return evList;

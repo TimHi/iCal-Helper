@@ -12,9 +12,8 @@ public class vEvent {
     private Date endDate;
     private String endTime;
     private String place;
-    private String repeat;
     private String desc;
-    private String wholeDay;
+
 
     vEvent(){}
     public void setTerminName(String terminName){this.terminName = terminName;}
@@ -52,19 +51,16 @@ public class vEvent {
     }
     public void setEndTime(String endTime){this.endTime = endTime;}
     public void setPlace(String place){this.place = place;}
-    public void setRepeat(String repeat){this.repeat = repeat;}
     public void setDesc(String desc){this.desc = desc;}
-    public void setWholeDay(String wholeDay){this.wholeDay = wholeDay;}
 
     public String getDesc() { return desc; }
     public Date getEndDate() { return endDate; }
     public String getEndTime() { return endTime; }
     public String getPlace() { return place; }
-    public String getRepeat() { return repeat; }
     public Date getStartDate() { return startDate; }
     public String getStartTime() { return startTime; }
     public String getTerminName() { return terminName; }
-    public String getWholeDay() { return wholeDay; }
+
 
     public void printElement(){
         System.out.print("\n--------------------------------\n");
@@ -84,12 +80,7 @@ public class vEvent {
         if(place!= null){
             System.out.print(" in " + getPlace());
         }
-        if(wholeDay != null){
-            System.out.print(" ganztägig " + getWholeDay());
-        }
-        if(repeat != null){
-            System.out.print(" Wiederholt sich: " + getRepeat());
-        }
+
 
     }
 }
