@@ -31,7 +31,12 @@ public class iCal {
         for(vEvent event : eventList) {
             VEvent calEvent = new VEvent();
             calEvent.setSummary(event.getTerminName());
-            calEvent.setDateStart(event.getStartDate());
+            //Check if Event is over the whole day
+            if(event.getWholeDay() != null) {
+                calEvent.setDateStart(event.getStartDate(), false);
+            }else{
+                calEvent.setDateStart(event.getStartDate());
+            }
             if(event.getEndDate() != null) {
                 calEvent.setDateEnd(event.getEndDate());
             }
@@ -62,17 +67,18 @@ public class iCal {
             if(calStrings.get(z)[0] != null && !calStrings.get(z)[0].isEmpty()){
                 csvEvent.setTerminName(calStrings.get(z)[0]);
             }
-            if(calStrings.get(z)[1] != null && !calStrings.get(z)[1].isEmpty()){
-                csvEvent.setStartDate(calStrings.get(z)[1]);
-            }
+            //Time before date because we check for time before we set date
             if(calStrings.get(z)[2] != null && !calStrings.get(z)[2].isEmpty()){
                 csvEvent.setStartTime(calStrings.get(z)[2]);
             }
-            if(calStrings.get(z)[3] != null && !calStrings.get(z)[3].isEmpty()){
-                csvEvent.setEndDate(calStrings.get(z)[3]);
+            if(calStrings.get(z)[1] != null && !calStrings.get(z)[1].isEmpty()){
+                    csvEvent.setStartDate(calStrings.get(z)[1]);
             }
             if(calStrings.get(z)[4] != null && !calStrings.get(z)[4].isEmpty()){
                 csvEvent.setEndTime(calStrings.get(z)[4]);
+            }
+            if(calStrings.get(z)[3] != null && !calStrings.get(z)[3].isEmpty()){
+                csvEvent.setEndDate(calStrings.get(z)[3]);
             }
             if(calStrings.get(z)[5] != null && !calStrings.get(z)[5].isEmpty()){
                 csvEvent.setPlace(calStrings.get(z)[5]);
@@ -82,9 +88,6 @@ public class iCal {
             }
             if(calStrings.get(z)[7] != null && !calStrings.get(z)[7].isEmpty()){
                 csvEvent.setDesc(calStrings.get(z)[7]);
-            }
-            if(calStrings.get(z)[8] != null && !calStrings.get(z)[8].isEmpty()){
-                csvEvent.setWholeDay(calStrings.get(z)[8]);
             }
             evList.add(csvEvent);
             }

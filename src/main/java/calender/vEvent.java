@@ -23,7 +23,9 @@ public class vEvent {
         if(getStartTime() != null){
             String tStartTime = getStartTime();
             startDate = startDate + " " + tStartTime;
-            Date parsedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(startDate);
+            Date date = new SimpleDateFormat("dd.MM.yy HH:mm").parse(startDate);
+            String dateString2 = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(date);
+            Date parsedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(dateString2);
             this.startDate = parsedDate;
         }else {
             Date date = new SimpleDateFormat("dd.MM.yy").parse(startDate);
@@ -37,7 +39,9 @@ public class vEvent {
         if(getEndTime() != null){
             String tEndTime = getEndTime();
             endDate = endDate + " " + tEndTime;
-            Date parsedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(endDate);
+            Date date = new SimpleDateFormat("dd.MM.yy HH:mm").parse(endDate);
+            String dateString2 = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(date);
+            Date parsedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(dateString2);
             this.endDate = parsedDate;
         }else {
             Date date = new SimpleDateFormat("dd.MM.yy").parse(endDate);
