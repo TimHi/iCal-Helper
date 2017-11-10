@@ -60,7 +60,27 @@ public class vEvent {
     public Date getStartDate() { return startDate; }
     public String getStartTime() { return startTime; }
     public String getTerminName() { return terminName; }
+    public String eventToString(){
 
+        String retString = getTerminName() + " " + getStartDate();
+        if(startTime != null){
+            retString = retString + ":" + getStartTime();
+        }
+        if(endDate != null){
+            System.out.print(" endet am " + getEndDate());
+        }
+        if(endTime != null){
+            System.out.print(":" + getEndTime());
+        }
+        if(desc != null){
+            System.out.print(" Beschreibung: " + getDesc());
+        }
+        if(place!= null){
+            System.out.print(" in " + getPlace());
+        }
+        return retString;
+
+    }
 
     public void printElement(){
         System.out.print("\n--------------------------------\n");

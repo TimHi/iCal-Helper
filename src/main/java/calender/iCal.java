@@ -20,10 +20,23 @@ import java.util.List;
 public class iCal {
 
     private File csvFile;
-    List<vEvent> eventList = new ArrayList<>();
+    public List<vEvent> eventList = new ArrayList<>();
 
-    iCal(File file){
-        this.csvFile = file;
+    iCal(){
+
+    }
+    public void setFile(File file){this.csvFile = file;}
+
+    List<vEvent> getEventList(){
+        return this.eventList;
+    }
+
+    List <String> getEventString(){
+        List <String> eventStrings = new ArrayList<>();
+        for(int i = 0; i < eventList.size(); i++){
+            eventStrings.add(eventList.get(i).eventToString());
+        }
+        return eventStrings;
     }
 
     public void createCalenderFile(List<vEvent> eventList){
@@ -106,7 +119,9 @@ public class iCal {
 
             try {
                 eventList = createEvents(calStrings);
+                this.eventList = eventList;
                 createCalenderFile(eventList);
+
             } catch (ParseException e) {
                 e.printStackTrace();
             }
