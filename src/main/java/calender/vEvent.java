@@ -20,7 +20,8 @@ public class vEvent {
 
     public void setStartDate(String stringStartDate) throws ParseException {
             //Check if string is dd.MM.yyyy HH:mm or dd.MM.yy HH:mm or
-            if(stringStartDate.length() == 15 || stringStartDate.length() == 13) {
+        System.out.print(stringStartDate.length() + " ");
+            if(stringStartDate.length() == 16 || stringStartDate.length() == 14) {
                 Date date = new SimpleDateFormat("dd.MM.yyyy HH:mm").parse(stringStartDate);
                 String dateString2 = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(date);
                 Date parsedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(dateString2);
