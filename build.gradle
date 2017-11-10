@@ -8,11 +8,24 @@ sourceCompatibility = 1.8
 repositories {
     mavenCentral()
 }
-
+configurations {
+    // configuration that holds jars to include in the jar
+    extraLibs
+}
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
+    extraLibs group: 'com.opencsv', name: 'opencsv', version: '3.8'
+    extraLibs 'net.sf.biweekly:biweekly:0.6.1'
 
-    compile group: 'com.opencsv', name: 'opencsv', version: '3.8'
 
-    compile 'net.sf.biweekly:biweekly:0.6.1'
+    configurations.compile.extendsFrom(configurations.extraLibs)
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'calender.Main'
+    }
+    from {
+        configurations.extraLibs.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }
