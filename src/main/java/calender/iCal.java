@@ -68,40 +68,37 @@ public class iCal {
         String fileName = getFileName();
         File file = new File(fileName);
         try {
+            Main.println("Creating ics File");
             ValidationWarnings warnings = ical.validate(ICalVersion.V2_0);
             Biweekly.write(ical).go(file);
+            Main.println("Finished building ics file");
+            String location = "File located at: " + file.getAbsolutePath();
+            Main.println(location);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     List createEvents(List<String[]> calStrings) throws ParseException {
+
         List<vEvent> evList = new ArrayList<>();
 
         for(int z = 1; z < calStrings.size(); z++){
             vEvent csvEvent = new vEvent();
-            //TODO find more efficiant way to do this
             if(calStrings.get(z)[0] != null && !calStrings.get(z)[0].isEmpty()){
                 csvEvent.setTerminName(calStrings.get(z)[0]);
             }
-            //Time before date because we check for time before we set date
-            if(calStrings.get(z)[2] != null && !calStrings.get(z)[2].isEmpty()){
-                csvEvent.setStartTime(calStrings.get(z)[2]);
-            }
             if(calStrings.get(z)[1] != null && !calStrings.get(z)[1].isEmpty()){
-                    csvEvent.setStartDate(calStrings.get(z)[1]);
+                csvEvent.setStartDate(calStrings.get(z)[1]);
             }
-            if(calStrings.get(z)[4] != null && !calStrings.get(z)[4].isEmpty()){
-                csvEvent.setEndTime(calStrings.get(z)[4]);
+            if(calStrings.get(z)[2] != null && !calStrings.get(z)[2].isEmpty()){
+                csvEvent.setEndDate(calStrings.get(z)[2]);
             }
             if(calStrings.get(z)[3] != null && !calStrings.get(z)[3].isEmpty()){
-                csvEvent.setEndDate(calStrings.get(z)[3]);
+                csvEvent.setPlace(calStrings.get(z)[3]);
             }
-            if(calStrings.get(z)[5] != null && !calStrings.get(z)[5].isEmpty()){
-                csvEvent.setPlace(calStrings.get(z)[5]);
-            }
-            if(calStrings.get(z)[6] != null && !calStrings.get(z)[6].isEmpty()){
-                csvEvent.setDesc(calStrings.get(z)[6]);
+            if(calStrings.get(z)[4] != null && !calStrings.get(z)[4].isEmpty()){
+                csvEvent.setDesc(calStrings.get(z)[4]);
             }
             evList.add(csvEvent);
             }
@@ -111,6 +108,7 @@ public class iCal {
     void readCSV() {
 
         try{
+            Main.println("Reading CSV");
             String filePath = csvFile.getCanonicalPath();
             CSVReader reader2 = new CSVReader(new FileReader(filePath), ',');
 
