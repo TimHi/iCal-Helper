@@ -35,62 +35,44 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-
         FXMLLoader loader = new FXMLLoader();
- //       loader.setLocation(getClass().getResource("/MainGUI.fxml"));
-//        Parent root = loader.load();
         stage.setTitle("iCal Helper");
         iCal i = new iCal();
-
-
-
 
         ListView listView = new ListView<String>();
         VBox vbox = new VBox(listView);
 
-        Scene scene = new Scene(vbox, 783, 434);
+        Scene scene = new Scene(vbox, 800, 500);
         stage.setScene(scene);
         stage.show();
 
-
-        scene.setOnDragOver(new EventHandler<DragEvent>() {
-            @Override
-            public void handle(DragEvent event) {
-                Dragboard db = event.getDragboard();
-                if (db.hasFiles()) {
-                    event.acceptTransferModes(TransferMode.COPY);
-                } else {
-                    event.consume();
-                }
-            }
-        });
-
-        // Dropping over surface
-        scene.setOnDragDropped(new EventHandler<DragEvent>() {
-            @Override
-            public void handle(DragEvent event) {
-                Dragboard db = event.getDragboard();
-                boolean success = false;
-                if (db.hasFiles()) {
-                    success = true;
-                    String filePath = null;
-                    for (File file:db.getFiles()) {
-                        filePath = file.getAbsolutePath();
-                        System.out.println(filePath);
-                        i.setFile(file);
-                        i.readCSV();
-
-                    }
-                }
-                event.setDropCompleted(success);
+        scene.setOnDragOver((DragEvent event) -> {
+            Dragboard db = event.getDragboard();
+            if (db.hasFiles()) {
+                event.acceptTransferModes(TransferMode.COPY);
+            } else {
                 event.consume();
-                fillList(listView, i);
             }
         });
 
-        //stage.setScene(scene);
-        //stage.show();
+        scene.setOnDragDropped((DragEvent event) -> {
+            Dragboard db = event.getDragboard();
+            boolean success = false;
+            if (db.hasFiles()) {
+                success = true;
+                String filePath = null;
+                for (File file:db.getFiles()) {
+                    filePath = file.getAbsolutePath();
+                    i.setFileName(filePath);
+                    i.setFile(file);
+                    i.readCSV();
 
+                }
+            }
+            event.setDropCompleted(success);
+            event.consume();
+            fillList(listView, i);
+        });
     }
 
 }

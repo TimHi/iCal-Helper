@@ -67,16 +67,16 @@ public class vEvent {
             retString = retString + ":" + getStartTime();
         }
         if(endDate != null){
-            System.out.print(" endet am " + getEndDate());
+            //System.out.print(" endet am " + getEndDate());
         }
         if(endTime != null){
-            System.out.print(":" + getEndTime());
+            //System.out.print(":" + getEndTime());
         }
         if(desc != null){
-            System.out.print(" Beschreibung: " + getDesc());
+            //System.out.print(" Beschreibung: " + getDesc());
         }
         if(place!= null){
-            System.out.print(" in " + getPlace());
+            //System.out.print(" in " + getPlace());
         }
         return retString;
 

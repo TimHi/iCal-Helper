@@ -20,6 +20,7 @@ import java.util.List;
 public class iCal {
 
     private File csvFile;
+    public String fileNameFull;
     public List<vEvent> eventList = new ArrayList<>();
 
     iCal(){
@@ -38,6 +39,12 @@ public class iCal {
         }
         return eventStrings;
     }
+
+    public String getFileName(){
+        String returnString =  fileNameFull.replace(".csv", ".ics");
+        return returnString;
+    }
+    public void setFileName(String fileName){this.fileNameFull = fileName;}
 
     public void createCalenderFile(List<vEvent> eventList){
         ICalendar ical = new ICalendar();
@@ -58,10 +65,10 @@ public class iCal {
 
             ical.addEvent(calEvent);
         }
-        File file = new File("meeting.ics");
+        String fileName = getFileName();
+        File file = new File(fileName);
         try {
             ValidationWarnings warnings = ical.validate(ICalVersion.V2_0);
-            System.out.println(warnings.toString());
             Biweekly.write(ical).go(file);
         } catch (IOException e) {
             e.printStackTrace();
@@ -96,7 +103,6 @@ public class iCal {
             if(calStrings.get(z)[6] != null && !calStrings.get(z)[6].isEmpty()){
                 csvEvent.setDesc(calStrings.get(z)[6]);
             }
-            csvEvent.printElement();
             evList.add(csvEvent);
             }
         return evList;
@@ -126,18 +132,6 @@ public class iCal {
                 e.printStackTrace();
             }
 
-           /*
-           for(int i = 0; i < eventList.size(); i++){
-               eventList.get(i).printElement();
-           }
-
-    for(int z = 0; z < calStrings.size(); z++){
-        for(int y = 0; y < calStrings.get(z).length; y++) {
-            System.out.print(calStrings.get(z)[y] + " ");
-               }
-               System.out.print("\n");
-    }
-    */
         } catch (IOException ioe) {
             System.out.println(ioe);
         }
